@@ -15,10 +15,10 @@ const jihyoProfile = await getJihyoProfile();
 const { data: albums } = await supabase
   .from('jihyo_discography')
   .select('*')
-  .order('release_date');
+  .order('release_date', { ascending: false });
 
 const { data: dbImages } = await supabase
-  .from('jihyo_gallery')
+  .from('jihyo_gallery')	
   .select('url, caption')
   .eq('is_premium', false);
 
@@ -33,24 +33,32 @@ const galleryImages = dbImages?.map(img => img.url) || [];
 const caption = dbImages?.map(img => img.caption) || [];
 ---
 
-<Layout title="The Jihyo Archive">
+<Layout title="Our Queen">
 	<main>
-		<HeroProfile />
+		<div id="home">
+			<HeroProfile />
+		</div>
 
-		<AboutSection 
-			client:load 
-			jihyoProfile={jihyoProfile}
-			fact={randomFact}
-		/>
+		<div id="persona">
+			<AboutSection 
+				client:load 
+				jihyoProfile={jihyoProfile}
+				fact={randomFact}
+			/>
+		</div>
 
 		<div id="gallery">
 			<BentoGallery images={galleryImages} caption={caption} client:visible />
 		</div>
 
-		<Discography 
-			client:load 
-			albums={albums || []}
-		/>
+		<div id="discography">
+			{albums && (
+			<Discography 
+				client:visible 
+				albums={albums}
+			/>
+			)}
+		</div>
 
 		<Footer />
 	</main>

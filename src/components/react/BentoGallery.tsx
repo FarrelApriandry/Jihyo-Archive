@@ -34,7 +34,7 @@ export default function BentoGallery({ images, caption }: Props){
     <section className="py-16 bg-black px-6">
       <div className="max-w-7xl mx-auto">
         <p className="text-right text-white/20 tracking-[0.5em] uppercase text-[10px] mb-4">
-            <a href="https://youtube.com" className="inline-block transition-transform duration-700 hover:scale-110 hover:text-[#FCC89B]">See more...</a>
+            <a href="https://youtube.com" className="inline-block transition-transform duration-700 delay-100 hover:text-[#FCC89B] hover:scale-110">See more...</a>
         </p>
         <div className="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-4 h-300 md:h-200">
             
