@@ -1,4 +1,5 @@
 import { motion, useScroll, useTransform } from "framer-motion";
+import { Github } from "lucide-react";
 
 export default function Navbar() {
   const { scrollY } = useScroll();
@@ -46,14 +47,14 @@ export default function Navbar() {
           <a 
             href="#home" 
             onClick={(e) => scrollToSection(e, 'home')}
-            className="text-xs tracking-[0.4em] font-light uppercase hover:text-[#FCC89B] transition-colors"
+            className="text-xs tracking-[0.4em] border border-white/30 px-3 py-1 rounded-lg font-light uppercase transition-colors delay-50 hover:text-[#FCC89B] hover:border-[#FCC89B]/30"
           >
-            The Jihyo Archive
+            Jihyo Archive
           </a>
         </div>
 
         <div className="hidden md:flex items-center gap-10">
-          {["Persona", "Gallery", "Discography", "Vault"].map((item) => (
+          {["Persona", "Gallery", "Discography"].map((item) => (
             <a 
               key={item}
               href={`#${item.toLowerCase()}`}
@@ -65,8 +66,13 @@ export default function Navbar() {
           ))}
         </div>
 
-        <div className="text-[10px] tracking-widest text-white/20 uppercase hidden sm:block">
-          {new Date().getFullYear()} — ARCHIVE_01
+        <div className="text-[10px] tracking-widest text-white/20 uppercase sm:block">
+          <a href="https://github.com/FarrelApriandry" target="_blank" className="hidden md:flex items-center gap-2 transition-colors duration-300 hover:text-white/40" rel="noopener noreferrer">
+            <Github size={16} />
+            <p>
+              {new Date().getFullYear()} — REL
+            </p>
+          </a>
         </div>
       </div>
     </motion.nav>

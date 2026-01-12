@@ -14,7 +14,7 @@ export default function AboutSection({ jihyoProfile, fact }: { jihyoProfile: any
               <p>Established: October 20, 2015</p>
               <div className="pt-4 border-t border-white/40">
                 <p className="mb-2 text-[#FCC89B]">Did you know?</p>
-                <p className="normal-case tracking-normal leading-relaxed italic">
+                <p className="inline-block normal-case tracking-normal leading-relaxed italic">
                   "{fact}"
                 </p>
               </div>

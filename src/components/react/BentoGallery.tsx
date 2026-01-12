@@ -9,8 +9,6 @@ interface Props {
 }
 
 export default function BentoGallery({ images, caption }: Props){
-  
-  const displayImages = images.slice(1, 6); 
 
   if (!images || images.length === 0) {
     return (

@@ -7,6 +7,7 @@ import AboutSection from '../components/react/AboutSection';
 import BentoGallery from '../components/react/BentoGallery';
 import Discography from '../components/react/Discography';
 import Footer from '../components/Footer.astro';
+import VaultGate from '../components/react/VaultGate';
 
 import { getJihyoProfile } from '../lib/twiceApi';
 import { supabase } from '../lib/supabase';
@@ -22,11 +23,16 @@ const { data: dbImages } = await supabase
   .select('url, caption')
   .eq('is_premium', false);
 
+const { data: dbFact } = await supabase
+  .from('jihyo_fact')	
+  .select('fact');
+
 // Logic Random Index
 // Math.random() ngasih angka 0 - 0.99
 // dikali length array, terus di-floor (dibulatkan ke bawah)
-const randomIndex = Math.floor(Math.random() * jihyoProfile.facts.length);
-const randomFact = jihyoProfile.facts[randomIndex];
+const randomFact = dbFact && dbFact.length > 0 
+  ? dbFact[Math.floor(Math.random() * dbFact.length)].fact 
+  : "No facts found";
 
 // 3. Merge images from database
 const galleryImages = dbImages?.map(img => img.url) || [];
@@ -34,7 +40,7 @@ const caption = dbImages?.map(img => img.caption) || [];
 ---
 
 <Layout title="Our Queen">
-	<main>
+	<main class="relative">
 		<div id="home">
 			<HeroProfile />
 		</div>
@@ -48,17 +54,20 @@ const caption = dbImages?.map(img => img.caption) || [];
 		</div>
 
 		<div id="gallery">
-			<BentoGallery images={galleryImages} caption={caption} client:visible />
+			<BentoGallery images={galleryImages} caption={caption} client:visible/>
 		</div>
 
 		<div id="discography">
 			{albums && (
 			<Discography 
-				client:visible 
+				client:idle 
 				albums={albums}
 			/>
 			)}
 		</div>
+
+		<div id="vault-trigger" class="h-20" />
+		<VaultGate client:load />
 
 		<Footer />
 	</main>
