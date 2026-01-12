@@ -1,0 +1,47 @@
+---
+// src/components/Footer.astro
+
+import { getJihyoProfile } from '../lib/twiceApi';
+const jihyo = await getJihyoProfile();
+---
+
+<footer class="bg-[#0a0a0a] text-white border-t border-white/5 pb-20 pt-10">
+  <div class="max-w-7xl container mx-auto px-6">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+      {/* Brand Section */}
+      <div class="col-span-1 md:col-span-1">
+        <h2 class="text-xs tracking-[0.5em] font-light opacity-40 mb-6">PARK JIHYO ARCHIVE</h2>
+        <p class="text-[10px] leading-relaxed opacity-30 uppercase tracking-widest">
+          Dedicated to the leader of TWICE. <br/>
+          Built by Rel.
+        </p>
+      </div>
+
+      {/* Stats Section */}
+      <div>
+        <p class="text-[10px] uppercase tracking-[0.3em] text-gray-500 mb-4">Core Position</p>
+        <div class="flex flex-wrap gap-2">
+          {jihyo.position.map((p) => (
+            <span class="text-[10px] border border-white/10 px-2 py-1 uppercase opacity-60">{p}</span>
+          ))}
+        </div>
+      </div>
+      
+      <div>
+        <p class="text-[10px] uppercase tracking-[0.3em] text-gray-500 mb-4">Vibe Check</p>
+        <p class="text-sm font-serif italic opacity-80">{jihyo.MBTI} — {jihyo.emoji[1]}</p>
+      </div>
+
+      <div class="md:text-right">
+        <p class="text-[10px] uppercase tracking-[0.3em] text-gray-500 mb-4">Official Channel</p>
+        <a 
+          href={jihyo.instagram[0]} 
+          target="_blank" 
+          class="text-sm hover:text-[#FCC89B] transition-colors tracking-tighter"
+        >
+          @_zyozyo
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>

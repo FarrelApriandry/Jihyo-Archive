@@ -1,11 +1,57 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+// src/pages/index.astro
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from '../layouts/Layout.astro';
+import HeroProfile from '../components/HeroProfile.astro';
+import AboutSection from '../components/react/AboutSection';
+import BentoGallery from '../components/react/BentoGallery';
+import Discography from '../components/react/Discography';
+import Footer from '../components/Footer.astro';
+
+import { getJihyoProfile } from '../lib/twiceApi';
+import { supabase } from '../lib/supabase';
+
+const jihyoProfile = await getJihyoProfile();
+const { data: albums } = await supabase
+  .from('jihyo_discography')
+  .select('*')
+  .order('release_date');
+
+const { data: dbImages } = await supabase
+  .from('jihyo_gallery')
+  .select('url, caption')
+  .eq('is_premium', false);
+
+// Logic Random Index
+// Math.random() ngasih angka 0 - 0.99
+// dikali length array, terus di-floor (dibulatkan ke bawah)
+const randomIndex = Math.floor(Math.random() * jihyoProfile.facts.length);
+const randomFact = jihyoProfile.facts[randomIndex];
+
+// 3. Merge images from database
+const galleryImages = dbImages?.map(img => img.url) || [];
+const caption = dbImages?.map(img => img.caption) || [];
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="The Jihyo Archive">
+	<main>
+		<HeroProfile />
+
+		<AboutSection 
+			client:load 
+			jihyoProfile={jihyoProfile}
+			fact={randomFact}
+		/>
+
+		<div id="gallery">
+			<BentoGallery images={galleryImages} caption={caption} client:visible />
+		</div>
+
+		<Discography 
+			client:load 
+			albums={albums || []}
+		/>
+
+		<Footer />
+	</main>
 </Layout>

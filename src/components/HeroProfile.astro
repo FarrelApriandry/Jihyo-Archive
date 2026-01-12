@@ -1,0 +1,52 @@
+---
+// src/components/HeroProfile.astro
+import { getJihyoProfile } from '../lib/twiceApi';
+import { getOptimizedImage } from '../lib/twiceApi';
+import HeroVisual from './react/HeroVisual';
+
+const jihyo = await getJihyoProfile();
+
+// Bersihkan URL gambar dan signature
+const cleanHeroImage = getOptimizedImage(jihyo.images[0]);
+const finalHeroImage = `${cleanHeroImage}${cleanHeroImage.includes('?') ? '&' : '?'}t=${Date.now()}`;
+const cleanSignature = getOptimizedImage(jihyo.signature);
+---
+
+<section class="relative bg-black text-white min-h-screen">
+    {/* Animasi Visual Utama */}
+    <HeroVisual 
+        client:load 
+        image={finalHeroImage} 
+        signature={cleanSignature} 
+        name={jihyo.name}
+        color={jihyo.color}
+    />
+
+    <!-- {/* Info Ringkas (Bio) */}
+    <div class="container mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-3 gap-8 border-t border-white/10">
+        <div>
+        <p class="text-xs uppercase tracking-[0.3em] text-gray-500 mb-2">Position</p>
+            <div class="flex gap-2">
+                {jihyo.position.map((p) => (
+                <span class="text-sm font-medium border border-white/20 px-2 py-1 uppercase">{p}</span>
+                ))}
+            </div>
+        </div>
+        
+        <div>
+            <p class="text-xs uppercase tracking-[0.3em] text-gray-500 mb-2">Personality</p>
+            <p class="text-xl font-serif italic">{jihyo.MBTI} — {jihyo.emoji[1]}</p>
+        </div>
+
+        <div class="text-right">
+            <p class="text-xs uppercase tracking-[0.3em] text-gray-500 mb-2">Instagram</p>
+            <a 
+                href={jihyo.instagram[0]} 
+                target="_blank" 
+                class="text-lg hover:text-apricot transition-colors underline decoration-white/20 underline-offset-8"
+            >
+                @_zyozyo
+            </a>
+        </div>
+    </div> -->
+</section>
