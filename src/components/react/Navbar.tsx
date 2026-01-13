@@ -1,13 +1,24 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Github } from "lucide-react";
 
-export default function Navbar() {
+// Kita buat interface Props supaya flexible
+interface NavbarProps {
+  navItems?: { name: string; href: string; isAnchor?: boolean }[];
+}
+
+export default function Navbar({ 
+  navItems = [
+    { name: "Persona", href: "#persona", isAnchor: true },
+    { name: "Gallery", href: "#gallery", isAnchor: true },
+    { name: "Discography", href: "#discography", isAnchor: true }
+  ] 
+}: NavbarProps) {
   const { scrollY } = useScroll();
   
   const backgroundColor = useTransform(
     scrollY,
     [0, 100],
-    ["rgba(10, 10, 10, 0)", "rgba(10, 10, 10, 0.8)"]
+    ["rgba(10, 10, 10, 0)", "rgba(10, 10, 10, 0.9)"]
   );
   
   const borderBottom = useTransform(
@@ -18,14 +29,12 @@ export default function Navbar() {
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
-    const targetId = id.toLowerCase() === 'home' ? 'home' : id.toLowerCase();
+    const targetId = id.replace('#', '');
     const element = document.getElementById(targetId);
     
     if (element) {
       const offset = 80;
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
+      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
       const offsetPosition = elementPosition - offset;
 
       window.scrollTo({
@@ -34,6 +43,8 @@ export default function Navbar() {
       });
 
       window.history.pushState(null, '', `#${targetId}`);
+    } else {
+      window.location.href = `/${id}`;
     }
   };
 
@@ -45,33 +56,31 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <a 
-            href="#home" 
-            onClick={(e) => scrollToSection(e, 'home')}
-            className="text-xs tracking-[0.4em] border border-white/30 px-3 py-1 rounded-lg font-light uppercase transition-colors delay-50 hover:text-[#FCC89B] hover:border-[#FCC89B]/30"
+            href="/" 
+            className="text-[10px] tracking-[0.4em] border border-white/20 px-4 py-1.5 rounded-full font-light uppercase transition-all duration-500 hover:text-[#FCC89B] hover:border-[#FCC89B]/50 hover:bg-[#FCC89B]/5"
           >
             Jihyo Archive
           </a>
         </div>
 
+        {/* Dynamic Center Navigation using Map */}
         <div className="hidden md:flex items-center gap-10">
-          {["Persona", "Gallery", "Discography"].map((item) => (
+          {navItems.map((item) => (
             <a 
-              key={item}
-              href={`#${item.toLowerCase()}`}
-              onClick={(e) => scrollToSection(e, item)}
-              className="text-[10px] uppercase tracking-[0.3em] text-white/60 hover:text-white transition-all hover:tracking-[0.4em]"
+              key={item.name}
+              href={item.href}
+              onClick={(e) => item.isAnchor ? scrollToSection(e, item.href) : null}
+              className="text-[9px] uppercase tracking-[0.3em] text-white/50 hover:text-white transition-all hover:tracking-[0.5em]"
             >
-              {item}
+              {item.name}
             </a>
           ))}
         </div>
 
-        <div className="text-[10px] tracking-widest text-white/20 uppercase sm:block">
-          <a href="https://github.com/FarrelApriandry" target="_blank" className="hidden md:flex items-center gap-2 transition-colors duration-300 hover:text-white/40" rel="noopener noreferrer">
-            <Github size={16} />
-            <p>
-              {new Date().getFullYear()} — REL
-            </p>
+        <div className="text-[9px] tracking-[0.3em] text-white/20 uppercase hidden sm:block">
+          <a href="https://github.com/FarrelApriandry" target="_blank" className="flex items-center gap-2 transition-colors duration-500 hover:text-[#FCC89B]" rel="noopener noreferrer">
+            <Github size={14} strokeWidth={1.5} />
+            <span>{new Date().getFullYear()} — REL</span>
           </a>
         </div>
       </div>

@@ -11,12 +11,16 @@ const { data: premiumData } = await supabase
   .select('url, caption')
   .eq('is_premium', true);
 
+const vaultNav = [
+	{ name: "", href: "", isAnchor: true },
+]
+
 const images = premiumData?.map(img => img.url) || [];
 const captions = premiumData?.map(img => img.caption) || [];
 ---
 
 <Layout title="The Vault | Restricted Access">
-	<Navbar client:load />
+	<Navbar navItems={vaultNav} client:load />
 	<main class="pt-32 min-h-screen bg-black">
 		<div class="max-w-7xl mx-auto px-6 mb-16">
 			<div class="border-l border-[#FCC89B] pl-6 py-2">

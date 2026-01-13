@@ -1,0 +1,175 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/react/Navbar';
+import Footer from '../components/Footer.astro';
+import FadeIn from '../components/react/FadeIn';
+
+const bioNav = [
+    { name: "Hero", href: "#hero", isAnchor: true },
+    { name: "Journey", href: "#journey", isAnchor: false },
+    { name: "Quote", href: "#quote", isAnchor: false }
+]
+---
+
+<Layout title="The Legend of Jihyo">
+  <Navbar navItems={bioNav} client:load />
+  
+  <main class="bg-[#0a0a0a] text-zinc-300 min-h-screen pb-40">
+    
+    {/* SECTION 1: HERO (THE STATEMENT) */}
+    <section id="hero" class="relative h-[90vh] flex items-center justify-center overflow-hidden mb-50">
+      {/* Background Year - Typographic Art */}
+      <h1 class="absolute text-[35vw] font-serif italic text-white/2 select-none leading-none">
+        1997
+      </h1>
+      {/* Hero Content: Pure Fade */}
+      <FadeIn direction="none" delay={0.4} client:load>
+        <div class="relative z-10 text-center">
+          <p class="text-[10px] tracking-[0.8em] uppercase text-[#FCC89B] mb-4">The Definitive Biography</p>
+          <h2 class="text-7xl md:text-9xl font-serif italic text-white leading-tight">
+            Park <br/> <span class="ml-5">Jihyo.</span>
+          </h2>
+        </div>
+      </FadeIn>
+
+      {/* Side Data - Vertical Specs */}
+      <div class="absolute right-10 bottom-20 hidden lg:block border-l border-white/10 pl-6 py-4">
+        <FadeIn direction="none" delay={0.8} client:load>
+          <div class="space-y-8">
+            {['Vocalist', 'Leader', 'Composer'].map(item => (
+              <p class="text-[9px] tracking-[0.4em] uppercase text-zinc-500 rotate-90 origin-left mb-12">{item}</p>
+            ))}
+          </div>
+        </FadeIn>
+      </div>
+    </section>
+
+    {/* SECTION 2: JOURNEY (ASYMMETRIC LAYOUT) */}
+    <section id="journey" class="max-w-7xl mx-auto px-6 grid grid-cols-12 gap-4 items-center mb-60">
+      <div class="col-span-12 lg:col-span-7 relative group">
+        <FadeIn direction="none" client:load>
+          <div class="aspect-4/5 bg-zinc-900 overflow-hidden">
+            <img src="/biography/jihyo-trainee.jpeg" class="w-full h-full object-cover grayscale transform-all duration-1000 group-hover:scale-105 hover:grayscale-0" />
+          </div>
+          {/* Overlapping Badge */}
+          <div class="absolute -bottom-10 -right-10 bg-[#FCC89B] p-10 hidden md:block">
+            <p class="text-black font-serif italic text-4xl">10</p>
+            <p class="text-black text-[8px] tracking-[0.3em] uppercase font-bold">Years of Training</p>
+          </div>
+        </FadeIn>
+      </div>
+
+      <div class="col-span-12 lg:col-span-4 lg:col-start-9 mt-20 lg:mt-0">
+        <FadeIn direction="up" delay={0.3} client:load>
+          <h3 class="text-[10px] tracking-[0.5em] uppercase text-[#FCC89B] mb-8">— Chapter 01</h3>
+          <h4 class="text-4xl font-serif italic text-white mb-8">The Genesis of a <br/> Leader.</h4>
+          <p class="text-sm font-light leading-relaxed text-zinc-400">
+            Born with the name Park Ji-soo, she began her journey at JYP Entertainment at the age of 8. 
+            A dedication that is rarely seen, where her childhood was spent honing
+            the voice that would later shake stadiums around the world.
+          </p>
+        </FadeIn>
+      </div>
+    </section>
+
+    {/* SECTION: CHAPTER 02 (THE METAMORPHOSIS) - REVERSED LAYOUT */}
+    <section class="max-w-7xl mx-auto px-6 grid grid-cols-12 gap-4 items-center mb-60">
+      <div class="col-span-12 lg:col-span-4 order-2 lg:order-1 mt-20 lg:mt-0">
+        <FadeIn direction="up" delay={0.3} client:load>
+          <h3 class="text-[10px] tracking-[0.5em] uppercase text-[#FCC89B] mb-8">— Chapter 02</h3>
+          <h4 class="text-4xl font-serif italic text-white mb-8">The Ten-Year <br/> Metamorphosis.</h4>
+          <p class="text-sm font-light leading-relaxed text-zinc-400">
+            Entering the survival show 'SIXTEEN' was her final stand. After a decade of waiting, 
+            she legally changed her name to Ji-hyo, a symbolic rebirth. She didn't just earn a spot in TWICE; 
+            she earned the respect of her peers who voted her as the leader.
+          </p>
+        </FadeIn>
+      </div>
+
+      <div class="col-span-12 lg:col-span-7 lg:col-start-6 order-1 lg:order-2 relative group">
+        <FadeIn direction="none" client:load>
+          <div class="aspect-square bg-zinc-900 overflow-hidden">
+            <img src="/biography/jihyo-sixteen.jpg" class="w-full h-auto object-cover grayscale transition-all duration-1000 group-hover:grayscale-0 group-hover:scale-105" />
+          </div>
+          {/* Floating Text Element */}
+          <div class="absolute -top-6 -left-6 border border-white/10 bg-[#0a0a0a] px-6 py-4">
+            <p class="text-[#FCC89B] text-[9px] tracking-[0.4em] uppercase">Status: Leader Elected</p>
+          </div>
+        </FadeIn>
+      </div>
+    </section>
+
+    {/* SECTION: CHAPTER 03 (THE SOLOIST) - OVERLAPPING IMAGE GRID */}
+    <section class="max-w-7xl mx-auto px-6 mb-60">
+      <div class="grid grid-cols-12 gap-4">
+        <div class="col-span-12 lg:col-span-7 relative">
+          <div class="grid grid-cols-2 gap-4">
+            <FadeIn direction="none" delay={0.2} client:load>
+              <div class="mt-20">
+                <img src="/biography/jihyo-zone-1.jpeg" class="w-full aspect-3/4 object-cover grayscale hover:grayscale-0 transition-all duration-700" />
+              </div>
+            </FadeIn>
+            <FadeIn direction="none" delay={0.4} client:load>
+              <div>
+                <img src="/biography/jihyo-zone-2.jpeg" class="w-full aspect-3/4 object-cover grayscale hover:grayscale-0 transition-all duration-700" />
+              </div>
+            </FadeIn>
+          </div>
+          {/* Typographic Overlay */}
+          <p class="absolute -bottom-10 right-0 text-[10vw] font-serif italic text-white/5 pointer-events-none">ZONE</p>
+        </div>
+
+         <div class="col-span-12 lg:col-span-5 mb-20 lg:mb-0">
+          <FadeIn direction="up" delay={0.5} client:load>
+            <h3 class="text-[10px] tracking-[0.5em] uppercase text-[#FCC89B] mb-8">— Chapter 03</h3>
+            <h4 class="text-6xl font-serif italic text-white mb-10 tracking-tighter">Beyond the <br/> Horizon.</h4>
+            <p class="text-sm font-light leading-relaxed text-zinc-400 max-w-sm mb-12">
+              2023 marked the beginning of her solo era with 'ZONE'. Moving away from the group's 
+              vibrant pop sound, Jihyo explored the depths of R&B and dance, proving that her 
+              artistry is as vast as the oceans she often sings about.
+            </p>
+            <div class="h-px w-40 bg-white/10"></div>
+          </FadeIn>
+        </div>
+      </div>
+    </section>
+
+    {/* SECTION 3: FULL WIDTH QUOTE (BREATHABLE SPACE) */}
+    <section id="quote" class="py-60 text-center px-6">
+      <FadeIn direction="none" duration={3} client:load>
+        <div class="max-w-4xl mx-auto">
+          <span class="text-4xl font-serif text-[#FCC89B]">"</span>
+          <h2 class="text-3xl md:text-5xl font-serif italic text-white leading-snug">
+              Because I gave it my all and did my best, I don't have any regrets about anything
+          </h2>
+          <div class="h-px w-20 bg-white/10 mx-auto mt-12"></div>
+        </div>
+      </FadeIn>
+    </section>
+
+    {/* SECTION 4: THE TECHNICAL SPECS (MINIMALIST TABLE) */}
+    <section class="max-w-5xl mx-auto px-6 mb-20">
+      <FadeIn direction="up" client:load>
+        <div class="border-t border-b border-white/5 py-20 grid grid-cols-1 md:grid-cols-3 gap-16">
+          <div class="space-y-4">
+            <p class="text-[10px] tracking-[0.4em] uppercase text-zinc-600">Debut Identity</p>
+            <p class="text-xl font-serif italic text-white">Park Jihyo</p>
+            <p class="text-xs text-zinc-500 leading-relaxed">Name legally changed from Ji-soo prior to the SIXTEEN survival show.</p>
+          </div>
+          <div class="space-y-4 border-l border-white/5 pl-8">
+            <p class="text-[10px] tracking-[0.4em] uppercase text-zinc-600">Vocal Range</p>
+            <p class="text-xl font-serif italic text-white">Mezzo-Soprano</p>
+            <p class="text-xs text-zinc-500 leading-relaxed">Recognized for her powerful chest voice and emotional depth in ballads.</p>
+          </div>
+          <div class="space-y-4 border-l border-white/5 pl-8">
+            <p class="text-[10px] tracking-[0.4em] uppercase text-zinc-600">The Soloist</p>
+            <p class="text-xl font-serif italic text-white">ZONE (2023)</p>
+            <p class="text-xs text-zinc-500 leading-relaxed">A record-breaking solo debut, showcasing her versatility as a songwriter.</p>
+          </div>
+        </div>
+      </FadeIn>
+    </section>
+
+  </main>
+  <Footer/>
+</Layout>

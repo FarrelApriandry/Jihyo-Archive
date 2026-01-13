@@ -27,6 +27,19 @@ export default function AboutSection({ jihyoProfile, fact }: { jihyoProfile: any
               With a decade of training and a voice that commands attention, 
               her journey is a testament to resilience and artistry.
             </p>
+            <motion.div 
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              className="mt-12"
+            >
+              <a 
+                href="/biography" 
+                className="group inline-flex items-center gap-4 text-[10px] tracking-[0.4em] uppercase"
+              >
+                <span className="text-white/40 group-hover:text-[#FCC89B] transition-colors">Read Full Biography</span>
+                <div className="h-px w-12 bg-white/10 group-hover:w-20 group-hover:bg-[#FCC89B] transition-all duration-500"></div>
+              </a>
+            </motion.div>
           </div>
         </div>
       </div>
