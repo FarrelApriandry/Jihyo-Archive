@@ -5,6 +5,7 @@ import { Lock, ShieldAlert, Terminal } from 'lucide-react';
 
 export default function VaultGate() {
   const [isVisible, setIsVisible] = useState(false);
+  const [isOpened, setIsOpened] = useState(false);
   const [password, setPassword] = useState('');
   const [status, setStatus] = useState<'idle' | 'error' | 'success'>('idle');
 
@@ -13,9 +14,12 @@ export default function VaultGate() {
     const handleScroll = () => {
       const scrollPosition = window.innerHeight + window.scrollY;
       const threshold = document.documentElement.scrollHeight - 20;
-      
-      if (scrollPosition >= threshold && !isVisible) {
-        setIsVisible(true);
+
+      if (isOpened === false) {
+        if (scrollPosition >= threshold && !isVisible) {
+          setIsVisible(true);
+          setIsOpened(true);
+        }
       }
     };
 
