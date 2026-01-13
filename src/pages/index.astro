@@ -27,9 +27,6 @@ const { data: dbFact } = await supabase
   .from('jihyo_fact')	
   .select('fact');
 
-// Logic Random Index
-// Math.random() ngasih angka 0 - 0.99
-// dikali length array, terus di-floor (dibulatkan ke bawah)
 const randomFact = dbFact && dbFact.length > 0 
   ? dbFact[Math.floor(Math.random() * dbFact.length)].fact 
   : "No facts found";
