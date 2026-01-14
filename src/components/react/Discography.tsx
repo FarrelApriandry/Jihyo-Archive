@@ -10,7 +10,7 @@ interface Album {
   detail: string;
 }
 
-export default function Discography({ albums }: { albums: Album[] }) {
+export default function Discography({ albums, isHomePage = false }: { albums: Album[], isHomePage? : boolean }) {
   // Helper buat bikin tanggal jadi format editorial (e.g., AUG 2023)
   const formatDate = (dateStr: string) => {
     try {
@@ -32,8 +32,8 @@ export default function Discography({ albums }: { albums: Album[] }) {
           <h2 className="text-4xl font-serif italic text-center">Discography Archive</h2>
           <div className="h-px w-20 bg-[#FCC89B]/30 mt-8"></div>
         </div>
-
         <div className="grid grid-cols-1 md:grid-cols-3 gap-x-12 gap-y-24">
+          {/* Button See More - Muncul cuma di Homepage */}
           {albums.map((album, i) => (
             <motion.div 
               key={album.id}
@@ -76,6 +76,17 @@ export default function Discography({ albums }: { albums: Album[] }) {
             </motion.div>
           ))}
         </div>
+        {isHomePage && (
+          <div className="mt-8 flex justify-center">
+            <a 
+              href="/discography" 
+              className="group flex flex-col items-center gap-4 text-[10px] tracking-[0.5em] uppercase text-zinc-500 hover:text-[#FCC89B] transition-all"
+            >
+              <span>View Full Discography</span>
+              <div className="h-px w-12 bg-white/10 group-hover:w-24 group-hover:bg-[#FCC89B] transition-all duration-700"></div>
+            </a>
+          </div>
+        )}
       </div>
     </section>
   );

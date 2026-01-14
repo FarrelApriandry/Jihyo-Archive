@@ -11,12 +11,15 @@ import VaultGate from '../components/react/VaultGate';
 
 import { getJihyoProfile } from '../lib/twiceApi';
 import { supabase } from '../lib/supabase';
+import Navbar from '../components/react/Navbar';
 
 const jihyoProfile = await getJihyoProfile();
-const { data: albums } = await supabase
+
+const { data: dbDiscography } = await supabase
   .from('jihyo_discography')
   .select('*')
-  .order('release_date', { ascending: false });
+  .order('release_date', { ascending: false })
+  .limit(3)
 
 const { data: dbImages } = await supabase
   .from('jihyo_gallery')	
@@ -38,6 +41,7 @@ const caption = dbImages?.map(img => img.caption) || [];
 
 <Layout title="Our Queen">
 	<main class="relative">
+		<Navbar client:load/>
 		<div id="home">
 			<HeroProfile />
 		</div>
@@ -55,10 +59,11 @@ const caption = dbImages?.map(img => img.caption) || [];
 		</div>
 
 		<div id="discography">
-			{albums && (
+			{dbDiscography && (
 			<Discography 
 				client:idle 
-				albums={albums}
+				albums={dbDiscography}
+				isHomePage={true}
 			/>
 			)}
 		</div>

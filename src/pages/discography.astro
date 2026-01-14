@@ -1,0 +1,34 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/react/Navbar';
+import DiscographyComponent from '../components/react/Discography';
+import Footer from '../components/Footer.astro';
+import { supabase } from '../lib/supabase';
+
+const { data: allAlbums } = await supabase
+  .from('jihyo_discography')
+  .select('*')
+  .order('release_date', { ascending: false });
+
+const discNav = [
+    { name: "Archive", href: "#", isAnchor: true },
+    { name: "Home", href: "/", isAnchor: true }
+]
+---
+
+<Layout title="Discography Archive | Jihyo">
+  <Navbar navItems={discNav} client:load />
+  
+  <main class="bg-black pt-20">
+    <div class="py-20 text-center">
+        <h1 class="text-6xl font-serif italic text-white">Full Archive</h1>
+        <p class="text-[10px] tracking-[0.5em] uppercase text-zinc-500 mt-4">Every Note, Every Era.</p>
+    </div>
+
+    {allAlbums && (
+        <DiscographyComponent albums={allAlbums} isHomePage={false} client:load />
+    )}
+  </main>
+
+  <Footer />
+</Layout>

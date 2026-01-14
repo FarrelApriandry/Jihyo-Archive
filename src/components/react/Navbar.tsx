@@ -1,3 +1,4 @@
+// src/components/react/Navbar.tsx
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Github } from "lucide-react";
 
@@ -53,8 +54,8 @@ export default function Navbar({
       style={{ backgroundColor, borderBottom }}
       className="fixed top-0 left-0 w-full z-100 backdrop-blur-md"
     >
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        <div className="flex items-center gap-2">
+      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between relative">
+        <div className="flex items-center z-10 gap-2">
           <a 
             href="/" 
             className="text-[10px] tracking-[0.4em] border border-white/20 px-4 py-1.5 rounded-full font-light uppercase transition-all duration-500 hover:text-[#FCC89B] hover:border-[#FCC89B]/50 hover:bg-[#FCC89B]/5"
@@ -64,7 +65,7 @@ export default function Navbar({
         </div>
 
         {/* Dynamic Center Navigation using Map */}
-        <div className="hidden md:flex items-center gap-10">
+        <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-10">
           {navItems.map((item) => (
             <a 
               key={item.name}
@@ -77,7 +78,7 @@ export default function Navbar({
           ))}
         </div>
 
-        <div className="text-[9px] tracking-[0.3em] text-white/20 uppercase hidden sm:block">
+        <div className="z-10 text-[9px] tracking-[0.3em] text-white/20 uppercase hidden sm:block">
           <a href="https://github.com/FarrelApriandry" target="_blank" className="flex items-center gap-2 transition-colors duration-500 hover:text-[#FCC89B]" rel="noopener noreferrer">
             <Github size={14} strokeWidth={1.5} />
             <span>{new Date().getFullYear()} — REL</span>
