@@ -11,7 +11,7 @@
       </blockquote>
     </td>
     <td width="40%" style="border: none;">
-      <img src="public/jihyo-og.png" alt="Park Jihyo Archive Cover" width="40%" />
+      <img src="public/jihyo-og.png" alt="Park Jihyo Archive Cover" width="100%" />
     </td>
   </tr>
 </table>
